@@ -1,5 +1,6 @@
+import axios from "axios";
 import { motion } from "framer-motion";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import Task from "../Task/Task";
 import "./TaskContainer.scss";
@@ -10,15 +11,62 @@ function TaskContainer(props) {
 
   const [tasks, setTasks] = React.useState([]);
 
-  const deleteTask = (index) => {
+  async function fetchTasksFromDB() {
+    try {
+      const response = await axios.get("http://localhost:4000/getTasks");
+
+      let newTasks = response.data.map((task) => task.title);
+
+      return newTasks;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function addTaskToDB(currentTask) {
+    try {
+      const response = await axios.post("http://localhost:4000/addTask", {
+        task: currentTask,
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function deleteTaskFromDB(index, task) {
+    try {
+      const response = await axios.post("http://localhost:4000/deleteTask", {
+        task: task,
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    async function getTasks() {
+      const newTasks = await fetchTasksFromDB();
+      setTasks(newTasks);
+    }
+
+    getTasks();
+  }, []);
+
+  const deleteTask = (index, task) => {
     /**
      * deleteTask function inputted task from the tasks array,
      * updating the state and re-rendering the component
      */
+
     setTasks(tasks.filter((_, i) => i !== index));
+
+    deleteTaskFromDB(index, task);
   };
 
-  const addTask = (e) => {
+  async function addTask(e) {
     /**
      * addTask function adds a task to the tasks array, if the task is not empty
      * and the number of tasks is less than the maximum number of tasks,
@@ -36,7 +84,9 @@ function TaskContainer(props) {
     }
     e.preventDefault();
     setRenderSearchIcon(false);
-  };
+
+    await addTaskToDB(currentTask);
+  }
 
   const [renderSearchIcon, setRenderSearchIcon] = React.useState(false);
   return (

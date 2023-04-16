@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import search_icon from "../../../Icons/search.svg";
 import "./SearchBox.scss";
+
 function SearchBox(props) {
   return (
     <div>
