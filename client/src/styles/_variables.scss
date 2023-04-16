@@ -1,0 +1,22 @@
+// Defining styles for the website
+
+
+$primary-color: #000000;
+$secondary-color: #efefef;
+$font-header: 'Bangers', sans-serif;
+$font-body: 'ChakraPetch', sans-serif;
+
+
+
+
+@font-face {
+    font-family: 'Bangers';
+    src: url("../fonts/Bangers/Bangers-Regular.ttf") format( "truetype" );
+    
+}
+
+@font-face {
+    font-family: 'ChakraPetch';
+    src: url("../fonts/Chakra_Petch/ChakraPetch-Light.ttf") format( "truetype" );
+    
+}
