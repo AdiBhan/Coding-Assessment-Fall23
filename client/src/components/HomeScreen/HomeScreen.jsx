@@ -27,7 +27,11 @@ function HomeScreen() {
   return (
     <>
       {" "}
-      {isButtonClicked && <TaskContainer />}
+      {isButtonClicked && (
+        <div className="pos">
+          <TaskContainer />
+        </div>
+      )}
       <img
         src="https://giffiles.alphacoders.com/209/209153.gif"
         alt="Background"

@@ -34,4 +34,33 @@
   box-shadow: 0.02rem 0.02rem 0.2rem 0.03rem rgb(52, 52, 52);
   z-index: 1000;
   transition: opacity 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .ToDoList_search_icon {
+    font-size: 1rem;
+    top: 10rem;
+    left: 10rem;
+  }
+  .ToDoList_input {
+    width: 15rem;
+    height: 2rem;
+    font-size: 1rem;
+    top: 20rem;
+    right: 7rem;
+  }
+}
+@media screen and (max-width: 460px) {
+  .ToDoList_search_icon {
+    position: absolute;
+    bottom: 30rem;
+    right: 55rem;
+  }
+  .ToDoList_input {
+    width: 15rem;
+    height: 2rem;
+    font-size: 1rem;
+    top: 20rem;
+    right: 7rem;
+  }
 }/*# sourceMappingURL=SearchBox.css.map */

@@ -12,8 +12,12 @@ function TaskContainer(props) {
   const [tasks, setTasks] = React.useState([]);
 
   async function fetchTasksFromDB() {
+    /***
+     *
+     * fetchTasksFromDB function fetches the tasks from the database
+     */
     try {
-      const response = await axios.get("http://localhost:4000/getTasks");
+      const response = await axios.get("http://localhost:4000/api/getTasks");
 
       let newTasks = response.data.map((task) => task.title);
 
@@ -24,8 +28,11 @@ function TaskContainer(props) {
   }
 
   async function addTaskToDB(currentTask) {
+    /***
+     * addTaskToDB function adds a task to the database
+     */
     try {
-      const response = await axios.post("http://localhost:4000/addTask", {
+      const response = await axios.post("http://localhost:4000/api/addTask", {
         task: currentTask,
       });
       console.log(response.data);
@@ -35,10 +42,16 @@ function TaskContainer(props) {
     }
   }
   async function deleteTaskFromDB(index, task) {
+    /***
+     * deleteTaskFromDB function deletes a task from the database
+     */
     try {
-      const response = await axios.post("http://localhost:4000/deleteTask", {
-        task: task,
-      });
+      const response = await axios.post(
+        "http://localhost:4000/api/deleteTask",
+        {
+          task: task,
+        }
+      );
       console.log(response.data);
       return response.data;
     } catch (error) {

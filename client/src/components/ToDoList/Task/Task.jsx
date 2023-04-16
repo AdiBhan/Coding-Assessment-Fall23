@@ -16,6 +16,7 @@ function Task(props) {
             >
               #{index + 1}. {task}
             </motion.h1>
+
             <img
               onClick={() => props.deleteTask(index, task)}
               className="delete_icon"
