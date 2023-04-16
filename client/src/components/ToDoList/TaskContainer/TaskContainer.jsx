@@ -1,13 +1,40 @@
 import { motion } from "framer-motion";
 import React, { useRef } from "react";
-import search_icon from "../../../Icons/search.svg";
+import SearchBox from "../SearchBox/SearchBox";
+import Task from "../Task/Task";
 import "./TaskContainer.scss";
 function TaskContainer(props) {
   const inputRef = useRef(null);
 
+  const maxTasks = 7;
+
+  const [tasks, setTasks] = React.useState([]);
+
+  const deleteTask = (index) => {
+    /**
+     * deleteTask function inputted task from the tasks array,
+     * updating the state and re-rendering the component
+     */
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
+
   const addTask = (e) => {
+    /**
+     * addTask function adds a task to the tasks array, if the task is not empty
+     * and the number of tasks is less than the maximum number of tasks,
+     * updating the state and re-rendering the component
+     */
+
+    let currentTask = inputRef.current.value;
+    if (currentTask.length > 0 && tasks.length < maxTasks) {
+      setTasks([...tasks, currentTask]);
+      inputRef.current.value = "";
+    } else if (tasks.length === maxTasks) {
+      alert(
+        "You have reached the maximum number of tasks. Please delete a task to add a new one."
+      );
+    }
     e.preventDefault();
-    console.log("hey");
     setRenderSearchIcon(false);
   };
 
@@ -18,7 +45,7 @@ function TaskContainer(props) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.75 }}
       whileHover={[
-        { boxShadow: "0px 0px 10px 2px rgba(0,0,20,0.75)" },
+        { boxShadow: ".5px .5px 4px 3px rgba(0,0,20,0.75)" },
         { scale: 1.05 },
       ]}
       drag={true}
@@ -27,28 +54,16 @@ function TaskContainer(props) {
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       className="ToDoList_box"
     >
-      <motion.h1 className="ToDoList_header">
-        {" "}
-        Click to add upcoming tasks
-      </motion.h1>
+      <motion.h1 className="ToDoList_header"> TaskRabbit 🐇 </motion.h1>
       <div className="ToDoList_horz_line"></div>
+      <Task deleteTask={deleteTask} tasks={tasks} />
 
-      <motion.div className="ToDoList_task_box"></motion.div>
-      <input
-        placeholder="Add your Task Here"
-        ref={inputRef}
-        maxLength={25}
-        type="text"
-        className="ToDoList_input"
-        onFocus={() => setRenderSearchIcon(true)}
+      <SearchBox
+        inputRef={inputRef}
+        setRenderSearchIcon={setRenderSearchIcon}
+        renderSearchIcon={renderSearchIcon}
+        addTask={addTask}
       />
-      {renderSearchIcon && (
-        <img
-          onClick={(e) => addTask(e)}
-          className="ToDoList_search_icon"
-          src={search_icon}
-        />
-      )}
     </motion.div>
   );
 }

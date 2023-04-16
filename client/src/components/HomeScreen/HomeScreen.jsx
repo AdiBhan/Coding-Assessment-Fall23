@@ -13,7 +13,7 @@ function HomeScreen() {
     "Start planning your day! 📝",
   ];
 
-  const addTodoList = () => {
+  const addToDoList = () => {
     setIsButtonClicked(true);
   };
 
@@ -44,7 +44,7 @@ function HomeScreen() {
         className="home_page_positioning"
       >
         <motion.h1 whileHover={{ scale: 1.05 }} className="home_screen_title">
-          ToDoList
+          TaskRabbit
         </motion.h1>
 
         <motion.h2 className="home_screen_subtext">{message}</motion.h2>
@@ -53,7 +53,7 @@ function HomeScreen() {
           whileHover={{ scale: 1.1, rotate: 360 }}
           transition={{ duration: 1.1 }}
           className="home_screen_button"
-          onClick={addTodoList}
+          onClick={addToDoList}
           initial={{ opacity: 0, y: -1000, rotate: 10 }}
           animate={{ opacity: 1, y: 0, rotate: 0 }}
           exit={isButtonClicked ? { opacity: 0.1 } : { opacity: 1 }}
